@@ -13,7 +13,7 @@ impl Camera {
         lookfrom: Point3,
         lookat: Point3,
         vup: Vec3,
-        vfov: f64, // vertical field-of-view in degrees
+        vfov: f64, 
         aspect_ratio: f64,
     ) -> Self {
         let theta = vfov.to_radians();

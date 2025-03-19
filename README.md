@@ -53,6 +53,5 @@ Possible enhancements:
 
 ## License
 
-not configured yet
+Not configured yet
 
-            

@@ -49,9 +49,9 @@ impl Hittable for Sphere {
         let mut rec = HitRecord {
             p,
             t,
-            normal: Vec3::zeros(), // Will be set by set_face_normal
+            normal: Vec3::zeros(), 
             material: Arc::clone(&self.material),
-            front_face: false, // Will be set by set_face_normal
+            front_face: false, 
         };
 
         rec.set_face_normal(ray, outward_normal);

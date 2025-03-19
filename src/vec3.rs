@@ -69,7 +69,6 @@ impl Vec3 {
     }
 
     pub fn near_zero(&self) -> bool {
-        // Return true if the vector is close to zero in all dimensions
         let s = 1e-8;
         (self.x.abs() < s) && (self.y.abs() < s) && (self.z.abs() < s)
     }
@@ -198,6 +197,5 @@ impl fmt::Display for Vec3 {
     }
 }
 
-// Type aliases for Vec3
-pub type Point3 = Vec3; // 3D point
-pub type Color = Vec3;  // RGB color 
+pub type Point3 = Vec3; 
+pub type Color = Vec3;  

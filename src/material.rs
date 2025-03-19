@@ -3,6 +3,7 @@ use crate::ray::Ray;
 use crate::vec3::{Color, Vec3};
 use rand::Rng;
 
+// anything that can scatter light
 pub trait Material: Send + Sync {
     fn scatter(&self, ray_in: &Ray, hit_record: &HitRecord) -> Option<(Color, Ray)>;
 }
