@@ -2,6 +2,10 @@
 
 A parallel ray tracer implemented in Rust, based on the "Ray Tracing in One Weekend" series by Peter Shirley.
 
+## Example Output
+![Ray traced spheres](output.png)
+*Example render showing three spheres with different materials: metallic (left), diffuse (center), and gold-like metal (right)*
+
 ## Features
 
 - Basic ray tracing with spheres, cameras, and materials
@@ -21,7 +25,6 @@ A parallel ray tracer implemented in Rust, based on the "Ray Tracing in One Week
 # Clone the repository
 git clone https://github.com/abdo544445/parallel-raytracer-rs.git
 cd parallel-raytracer-rs
-
 
 # Build
 cargo build --release
