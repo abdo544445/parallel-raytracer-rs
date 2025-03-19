@@ -19,8 +19,9 @@ A parallel ray tracer implemented in Rust, based on the "Ray Tracing in One Week
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/parallel_ray_tracer.git
-cd parallel_ray_tracer
+git clone https://github.com/abdo544445/parallel-raytracer-rs.git
+cd parallel-raytracer-rs
+
 
 # Build
 cargo build --release
