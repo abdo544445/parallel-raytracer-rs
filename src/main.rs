@@ -13,7 +13,7 @@ use material::{Lambertian, Metal};
 use objects::Sphere;
 use rand::Rng;
 use rayon::prelude::*;
-use std::rc::Rc;
+use std::sync::Arc;
 use vec3::{Color, Point3, Vec3};
 
 fn ray_color(ray: &ray::Ray, world: &dyn Hittable, depth: i32) -> Color {
@@ -48,27 +48,27 @@ fn main() {
     // World
     let mut world = HittableList::new();
 
-    let material_ground = Rc::new(Lambertian::new(Color::new(0.8, 0.8, 0.0)));
-    let material_center = Rc::new(Lambertian::new(Color::new(0.7, 0.3, 0.3)));
-    let material_left = Rc::new(Metal::new(Color::new(0.8, 0.8, 0.8), 0.3));
-    let material_right = Rc::new(Metal::new(Color::new(0.8, 0.6, 0.2), 1.0));
+    let material_ground = Arc::new(Lambertian::new(Color::new(0.8, 0.8, 0.0)));
+    let material_center = Arc::new(Lambertian::new(Color::new(0.7, 0.3, 0.3)));
+    let material_left = Arc::new(Metal::new(Color::new(0.8, 0.8, 0.8), 0.3));
+    let material_right = Arc::new(Metal::new(Color::new(0.8, 0.6, 0.2), 1.0));
 
-    world.add(Rc::new(Sphere::new(
+    world.add(Arc::new(Sphere::new(
         Point3::new(0.0, -100.5, -1.0),
         100.0,
         material_ground,
     )));
-    world.add(Rc::new(Sphere::new(
+    world.add(Arc::new(Sphere::new(
         Point3::new(0.0, 0.0, -1.0),
         0.5,
         material_center,
     )));
-    world.add(Rc::new(Sphere::new(
+    world.add(Arc::new(Sphere::new(
         Point3::new(-1.0, 0.0, -1.0),
         0.5,
         material_left,
     )));
-    world.add(Rc::new(Sphere::new(
+    world.add(Arc::new(Sphere::new(
         Point3::new(1.0, 0.0, -1.0),
         0.5,
         material_right,
@@ -82,6 +82,7 @@ fn main() {
 
     // Render
     let mut img_buf = image::RgbImage::new(image_width as u32, image_height as u32);
+    let world_ref = Arc::new(world);
 
     println!("Rendering a {}x{} image with {} samples per pixel...", image_width, image_height, samples_per_pixel);
 
@@ -102,7 +103,7 @@ fn main() {
                 let u = (*i as f64 + rng.gen::<f64>()) / (image_width - 1) as f64;
                 let v = ((image_height - 1 - *j as i32) as f64 + rng.gen::<f64>()) / (image_height - 1) as f64;
                 let ray = camera.get_ray(u, v);
-                pixel_color += ray_color(&ray, &world, max_depth);
+                pixel_color += ray_color(&ray, world_ref.as_ref(), max_depth);
             }
 
             (*i, *j, color_to_rgb(pixel_color, samples_per_pixel))
